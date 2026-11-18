@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MedInsight AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0d1117;--surface:#161b22;--card:#161b22;--border:#21262d;--border2:#30363d;--text:#e6edf3;--muted:#8b949e;--dim:#484f58;--blue:#1d4ed8;--sky:#0ea5e9;--accent:#388bfd;--lb:#79c0ff;--dep:#7c3aed;--bp:#dc2626;--dia:#059669;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden;font-size:16px;line-height:1.6;}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:#161b22;}::-webkit-scrollbar-thumb{background:#2563eb;border-radius:3px;}
+.glow{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(100px);opacity:0.09;}
+.glow.a{width:600px;height:600px;top:-180px;left:-180px;background:#1d4ed8;}
+.glow.b{width:450px;height:450px;bottom:-120px;right:-120px;background:#0ea5e9;opacity:0.06;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(13,17,23,0.88);border-bottom:1px solid rgba(33,38,45,0.8);backdrop-filter:blur(16px);}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#1d4ed8,#0ea5e9);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 4px 16px rgba(29,78,216,0.45);}
+.logo-name{font-weight:800;font-size:1.05rem;color:var(--text);letter-spacing:-0.01em;}
+.logo-name em{font-style:normal;background:linear-gradient(135deg,#60a5fa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-r{display:flex;align-items:center;gap:4px;}
+.nav-a{padding:7px 14px;border-radius:8px;color:var(--muted);font-size:0.85rem;font-weight:600;text-decoration:none;transition:all .2s;}
+.nav-a:hover{color:var(--text);background:rgba(33,38,45,0.6);}
+.nav-btn{padding:9px 20px;border-radius:10px;background:linear-gradient(135deg,#1d4ed8,#0ea5e9);color:#fff;font-size:0.875rem;font-weight:700;text-decoration:none;box-shadow:0 2px 12px rgba(29,78,216,0.4);transition:all .2s;letter-spacing:0.01em;}
+.nav-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(29,78,216,0.55);}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:108px 24px 80px;text-align:center;}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(29,78,216,0.1);border:1px solid rgba(56,139,253,0.25);border-radius:100px;padding:5px 16px;font-size:0.72rem;font-weight:700;color:var(--lb);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:28px;animation:up .5s ease forwards;opacity:0;}
+.bdot{width:6px;height:6px;border-radius:50%;background:var(--lb);animation:blink 2s ease infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.35;}}
+h1{font-weight:800;font-size:clamp(2.5rem,5vw,4.5rem);line-height:1.06;letter-spacing:-0.03em;margin-bottom:20px;animation:up .55s .08s ease forwards;opacity:0;}
+.grad{background:linear-gradient(135deg,#60a5fa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sub{max-width:540px;font-size:1rem;color:var(--muted);font-weight:400;line-height:1.8;margin-bottom:40px;animation:up .55s .16s ease forwards;opacity:0;}
+.typed-w{font-family:'JetBrains Mono',monospace;background:rgba(29,78,216,0.12);border:1px solid rgba(56,139,253,0.28);border-radius:6px;padding:2px 10px;font-size:0.88em;color:#79c0ff;}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:60px;animation:up .55s .24s ease forwards;opacity:0;}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#1d4ed8,#0ea5e9);color:#fff;padding:13px 30px;border-radius:12px;font-weight:700;font-size:0.92rem;text-decoration:none;box-shadow:0 4px 16px rgba(29,78,216,0.45);transition:all .2s;}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(37,99,235,0.55);}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:13px 24px;border-radius:12px;font-weight:600;font-size:0.92rem;text-decoration:none;transition:all .2s;}
+.btn-s:hover{border-color:var(--accent);color:var(--lb);}
+.stats-row{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;animation:up .55s .32s ease forwards;opacity:0;}
+.stat{padding:18px 32px;text-align:center;border-right:1px solid var(--border);}
+.stat:last-child{border-right:none;}
+.snum{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:500;background:linear-gradient(135deg,#60a5fa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:4px;}
+.slbl{font-size:0.65rem;color:var(--dim);font-weight:700;letter-spacing:0.08em;text-transform:uppercase;}
+@keyframes up{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+section{position:relative;z-index:1;padding:80px 24px;}
+.wrap{max-width:1060px;margin:0 auto;}
+.sec-tag{font-size:0.68rem;font-weight:700;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:8px;}
+.sec-h{font-weight:800;font-size:clamp(1.7rem,3vw,2.5rem);line-height:1.15;letter-spacing:-0.02em;margin-bottom:12px;}
+.sec-p{font-size:0.9rem;color:var(--muted);max-width:480px;line-height:1.85;}
+.conds{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
+.cond{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;transition:all .25s;position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.2);}
+.cond::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.cond.dep::before{background:linear-gradient(90deg,#7c3aed,#818cf8);}
+.cond.bp::before{background:linear-gradient(90deg,#dc2626,#f87171);}
+.cond.dia::before{background:linear-gradient(90deg,#059669,#34d399);}
+.cond:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 4px 20px rgba(0,0,0,0.35);}
+.cicon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:16px;}
+.dep .cicon{background:rgba(124,58,237,0.15);}.bp .cicon{background:rgba(220,38,38,0.15);}.dia .cicon{background:rgba(5,150,105,0.15);}
+.cname{font-weight:700;font-size:1rem;margin-bottom:8px;color:var(--text);}
+.cdesc{font-size:0.82rem;color:var(--muted);line-height:1.72;margin-bottom:16px;}
+.cpill{display:inline-flex;padding:4px 11px;border-radius:100px;font-size:0.68rem;font-weight:600;font-family:'JetBrains Mono',monospace;}
+.dep .cpill{background:rgba(124,58,237,0.15);color:#a78bfa;}.bp .cpill{background:rgba(220,38,38,0.15);color:#f87171;}.dia .cpill{background:rgba(5,150,105,0.15);color:#34d399;}
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
+.feat{background:var(--card);border-radius:16px;padding:24px 20px;transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.2);border-top:3px solid #1d4ed8;border-left:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.feat:hover{transform:translateY(-3px);border-top-color:var(--sky);}
+.ficon{font-size:1.3rem;margin-bottom:12px;}.ftitle{font-weight:700;font-size:0.9rem;margin-bottom:6px;color:var(--text);}.fdesc{font-size:0.79rem;color:var(--muted);line-height:1.72;}
+.acc-wrap{display:flex;align-items:center;justify-content:center;gap:64px;margin-top:52px;flex-wrap:wrap;}
+.ring-box{position:relative;width:190px;height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.ring-box svg{position:absolute;inset:0;transform:rotate(-90deg);}
+.rnum{font-family:'JetBrains Mono',monospace;font-size:2.6rem;font-weight:500;background:linear-gradient(135deg,#60a5fa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.rlbl{font-size:0.65rem;color:var(--dim);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px;font-weight:700;}
+.bars{display:flex;flex-direction:column;gap:14px;}
+.brow{display:flex;align-items:center;gap:12px;}
+.bname{font-size:0.79rem;color:var(--muted);width:92px;font-weight:600;}
+.btrack{height:6px;background:var(--border);border-radius:100px;overflow:hidden;width:220px;}
+.bfill{height:100%;border-radius:100px;}
+.bval{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:#79c0ff;width:44px;text-align:right;font-weight:500;}
+.acc-pill{display:inline-block;background:rgba(46,160,67,0.15);border:1px solid rgba(46,160,67,0.4);color:#3fb950;font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:600;padding:4px 14px;border-radius:100px;margin-left:12px;vertical-align:middle;}
+.info-box{background:rgba(29,78,216,0.1);border:1px solid rgba(56,139,253,0.3);border-radius:10px;padding:10px 16px;font-size:0.79rem;color:#79c0ff;display:flex;align-items:center;gap:8px;margin-top:40px;justify-content:center;max-width:460px;margin-left:auto;margin-right:auto;}
+.cta-sec{background:linear-gradient(135deg,rgba(29,78,216,0.1),rgba(14,165,233,0.07));border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.cta-inner{text-align:center;max-width:560px;margin:0 auto;}
+.cta-h{font-weight:800;font-size:clamp(1.8rem,3.2vw,2.6rem);letter-spacing:-0.02em;margin-bottom:12px;}
+.cta-p{font-size:0.92rem;color:var(--muted);margin-bottom:36px;line-height:1.85;}
+footer{position:relative;z-index:1;padding:32px 48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.fl{font-size:0.75rem;color:var(--dim);line-height:1.65;}.fl strong{color:var(--muted);}
+.fr{display:flex;gap:16px;}
+.flink{font-size:0.75rem;color:var(--dim);text-decoration:none;transition:color .2s;font-weight:600;}.flink:hover{color:var(--text);}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}.rv.in{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}
+@media(max-width:760px){nav{padding:0 16px;}.conds,.feats{grid-template-columns:1fr;}.stats-row{flex-direction:column;}.stat{border-right:none;border-bottom:1px solid var(--border);}.stat:last-child{border-bottom:none;}footer{flex-direction:column;gap:14px;text-align:center;padding:24px 20px;}.acc-wrap{gap:36px;}}
+</style>
+</head>
+<body>
+<div class="glow a"></div><div class="glow b"></div>
+<nav>
+  <a href="#" class="logo"><div class="logo-icon">⚕</div><span class="logo-name">MedInsight <em>AI</em></span></a>
+  <div class="nav-r">
+    <a href="#conditions" class="nav-a">Conditions</a>
+    <a href="#features" class="nav-a">Features</a>
+    <a href="#accuracy" class="nav-a">Accuracy</a>
+    <a href="/Login" class="nav-btn">Sign In →</a>
+  </div>
+</nav>
+<div class="hero">
+  <div class="badge"><span class="bdot"></span>AI-Powered Drug Recommendation</div>
+  <h1>Find the Right Drug<br><span class="grad">for Your Condition</span></h1>
+  <p class="sub">Describe your symptoms and let MedInsight AI recommend the best-rated drugs for <span class="typed-w" id="typed"></span> — backed by 161,000+ real patient reviews.</p>
+  <div class="actions">
+    <a href="/Login" class="btn-p">⚕ &nbsp;Get Started Free</a>
+    <a href="#conditions" class="btn-s">See What We Cover</a>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="snum">96.2%</div><div class="slbl">Accuracy</div></div>
+    <div class="stat"><div class="snum">161K+</div><div class="slbl">Patient Reviews</div></div>
+    <div class="stat"><div class="snum">800+</div><div class="slbl">Drugs Analysed</div></div>
+    <div class="stat"><div class="snum">3</div><div class="slbl">Conditions</div></div>
+  </div>
+</div>
+<section id="conditions">
+  <div class="wrap">
+    <div class="rv"><div class="sec-tag">What We Cover</div><h2 class="sec-h">Three Conditions.<br>Thousands of Reviews.</h2><p class="sec-p">Our AI analyses real patient reviews to surface the most effective, highest-rated drugs for each condition.</p></div>
+    <div class="conds">
+      <div class="cond dep rv d1"><div class="cicon">🧠</div><div class="cname">Depression</div><p class="cdesc">Compare antidepressants by real patient satisfaction scores and discover which treatments work best based on thousands of lived experiences.</p><span class="cpill">SSRIs · SNRIs · Atypical</span></div>
+      <div class="cond bp rv d2"><div class="cicon">🫀</div><div class="cname">High Blood Pressure</div><p class="cdesc">Explore top-rated antihypertensives chosen by real patients — based on effectiveness, tolerability, and satisfaction ratings.</p><span class="cpill">ACE · ARBs · Beta Blockers</span></div>
+      <div class="cond dia rv d3"><div class="cicon">🩸</div><div class="cname">Type 2 Diabetes</div><p class="cdesc">Discover diabetes medications with the highest satisfaction scores and fewest reported side effects from real patient experiences.</p><span class="cpill">Metformin · GLP-1 · DPP-4</span></div>
+    </div>
+  </div>
+</section>
+<section id="features" style="background:#0a0f16;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="rv" style="text-align:center;"><div class="sec-tag">Platform Features</div><h2 class="sec-h">Built for Real Insights</h2></div>
+    <div class="feats">
+      <div class="feat rv d1"><div class="ficon">⚡</div><div class="ftitle">Instant Predictions</div><p class="fdesc">Type your symptoms or paste a drug review and get a condition prediction with drug recommendations in seconds.</p></div>
+      <div class="feat rv d2"><div class="ficon">💊</div><div class="ftitle">Drug Rankings</div><p class="fdesc">See the highest-rated medications for your condition, ranked by real patient ratings and review usefulness scores.</p></div>
+      <div class="feat rv d3"><div class="ficon">📈</div><div class="ftitle">Visual Insights</div><p class="fdesc">Interactive charts revealing drug effectiveness trends, rating distributions, and top-performing treatments.</p></div>
+      <div class="feat rv d1"><div class="ficon">🔒</div><div class="ftitle">Secure &amp; Private</div><p class="fdesc">Your account and prediction history are protected with secure authentication — only you can access your data.</p></div>
+      <div class="feat rv d2"><div class="ficon">📋</div><div class="ftitle">Prediction History</div><p class="fdesc">Every query you run is saved so you can revisit and compare drug recommendations at any time.</p></div>
+      <div class="feat rv d3"><div class="ficon">✅</div><div class="ftitle">Confidence Scores</div><p class="fdesc">Each prediction shows a per-condition confidence percentage so you know exactly how certain the AI is.</p></div>
+    </div>
+  </div>
+</section>
+<section id="accuracy" style="text-align:center;">
+  <div class="wrap">
+    <div class="rv"><div class="sec-tag">Performance</div><h2 class="sec-h">Precision You Can Trust <span class="acc-pill">96.2% Accuracy</span></h2><p class="sec-p" style="margin:0 auto;">Rigorously evaluated across all three conditions with consistently high accuracy.</p></div>
+    <div class="acc-wrap rv">
+      <div class="ring-box">
+        <svg viewBox="0 0 190 190" fill="none"><circle cx="95" cy="95" r="76" stroke="#21262d" stroke-width="13"/><circle cx="95" cy="95" r="76" stroke="url(#g1)" stroke-width="13" stroke-dasharray="477.5" stroke-dashoffset="18.1" stroke-linecap="round"/><defs><linearGradient id="g1" x1="0" y1="0" x2="190" y2="0"><stop offset="0%" stop-color="#1d4ed8"/><stop offset="100%" stop-color="#0ea5e9"/></linearGradient></defs></svg>
+        <div class="rnum">96.2%</div><div class="rlbl">Overall Accuracy</div>
+      </div>
+      <div class="bars">
+        <div class="brow"><span class="bname">Precision</span><div class="btrack"><div class="bfill" style="width:95.1%;background:linear-gradient(90deg,#1d4ed8,#38bdf8);"></div></div><span class="bval">95.1%</span></div>
+        <div class="brow"><span class="bname">Recall</span><div class="btrack"><div class="bfill" style="width:94.3%;background:linear-gradient(90deg,#6366f1,#818cf8);"></div></div><span class="bval">94.3%</span></div>
+        <div class="brow"><span class="bname">F1 Score</span><div class="btrack"><div class="bfill" style="width:94.7%;background:linear-gradient(90deg,#0ea5e9,#38bdf8);"></div></div><span class="bval">94.7%</span></div>
+        <div class="brow"><span class="bname">Depression</span><div class="btrack"><div class="bfill" style="width:97%;background:linear-gradient(90deg,#7c3aed,#818cf8);"></div></div><span class="bval">97.0%</span></div>
+        <div class="brow"><span class="bname">Hypertension</span><div class="btrack"><div class="bfill" style="width:94.5%;background:linear-gradient(90deg,#dc2626,#f87171);"></div></div><span class="bval">94.5%</span></div>
+        <div class="brow"><span class="bname">Diabetes</span><div class="btrack"><div class="bfill" style="width:96.1%;background:linear-gradient(90deg,#059669,#34d399);"></div></div><span class="bval">96.1%</span></div>
+      </div>
+    </div>
+    <div class="info-box rv">⚕ &nbsp;For educational and research use only — always consult a qualified medical professional.</div>
+  </div>
+</section>
+<section class="cta-sec">
+  <div class="wrap"><div class="cta-inner rv">
+    <h2 class="cta-h">Ready to Find<br>Your Best Match?</h2>
+    <p class="cta-p">Create a free account and start exploring personalised drug recommendations based on real patient experiences.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/Login" class="btn-p">⚕ &nbsp;Get Started Free</a>
+      <a href="#conditions" class="btn-s">Learn More</a>
+    </div>
+  </div></div>
+</section>
+<footer>
+  <div class="fl"><strong>MedInsight AI</strong> · Limkokwing University of Creative Technology · Lesotho<br>For educational and research purposes only. Not a substitute for professional medical advice.</div>
+  <div class="fr"><a href="#conditions" class="flink">Conditions</a><a href="#features" class="flink">Features</a><a href="/Login" class="flink">Sign In</a></div>
+</footer>
+<script>
+const conds=["Depression","High Blood Pressure","Type 2 Diabetes"];
+let ci=0,pos=0,del=false;
+const el=document.getElementById("typed");
+function tick(){const t=conds[ci];if(!del){el.textContent=t.slice(0,++pos);if(pos===t.length){del=true;setTimeout(tick,1900);return;}}else{el.textContent=t.slice(0,--pos);if(pos===0){del=false;ci=(ci+1)%conds.length;setTimeout(tick,420);return;}}setTimeout(tick,del?46:76);}
+tick();
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:0.1});
+document.querySelectorAll(".rv").forEach(e=>io.observe(e));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",e=>{const t=document.querySelector(a.getAttribute("href"));if(t){e.preventDefault();t.scrollIntoView({behavior:"smooth"});}});});
+</script>
+</body>
+</html>
